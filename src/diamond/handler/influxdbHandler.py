@@ -173,9 +173,11 @@ class InfluxdbHandler(Handler):
                 metrics = []
                 for path in self.batch:
                     metrics.append({
-                        "points": self.batch[path],
-                        "name": path,
-                        "columns": ["time", "value"]})
+                        "measurement": path,
+                        "precision": self.time_precision,
+                        "time": self.batch[path][0][0],
+                        "fields": {"value": float(self.batch[path][0][1])}
+                        })
                 # Send data to influxdb
                 self.log.debug("InfluxdbHandler: writing %d series of data",
                                len(metrics))

@@ -90,7 +90,7 @@ as cummulative nanoseconds since VM creation if this is True."""
 
     def report_cpu_metric(self, statname, value, instance):
         # Value in cummulative nanoseconds
-        if self.config['cpu_absolute'] is True:
+        if str_to_bool(self.config['cpu_absolute']) is True:
             metric = value
         else:
             # Nanoseconds (10^9), however, we want to express in 100%
